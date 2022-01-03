@@ -1,3 +1,4 @@
+from typing import List
 from abc import abstractmethod
 from models import User
 
@@ -9,6 +10,10 @@ class Repository:
 
     @abstractmethod
     def get_user(self, user_id: int) -> User:
+        pass
+
+    @abstractmethod
+    def get_users(self) -> List[User]:
         pass
 
 
@@ -23,3 +28,6 @@ class SqlalchemyRepository(Repository):
 
     def get_user(self, user_id) -> User:
         return self.session.query(User).filter(User.id == user_id).one()
+
+    def get_users(self) -> List[User]:
+        return self.session.query(User).all()

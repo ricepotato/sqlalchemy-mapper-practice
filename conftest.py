@@ -1,5 +1,7 @@
 import os
 import pytest
+from faker import Faker
+from models import User
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
@@ -21,3 +23,10 @@ def sqlite_session(sqlite_db):
     start_mappers()
     yield sessionmaker(bind=sqlite_db, autocommit=True)()
     clear_mappers()
+
+
+@pytest.fixture
+def fake_users():
+    faker = Faker()
+    return [User(name=faker.name(), email=faker.email()) for _ in range(10)]
+
