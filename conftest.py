@@ -1,7 +1,7 @@
 import os
 import pytest
 from faker import Faker
-from models import User
+from models import User, Address
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
@@ -30,3 +30,8 @@ def fake_users():
     faker = Faker()
     return [User(name=faker.name(), email=faker.email()) for _ in range(10)]
 
+
+@pytest.fixture
+def fake_addresses():
+    faker = Faker()
+    return [Address(name=faker.word(), address=faker.address()) for _ in range(2)]

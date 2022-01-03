@@ -1,7 +1,17 @@
 from dataclasses import dataclass
+from typing import List
+
+
+@dataclass
+class Address:
+    name: str
+    address: str
 
 
 @dataclass
 class User:
-    name: str
-    email: str
+    def __init__(self, name: str, email: str, addresses: List[Address] = []):
+        self.name = name
+        self.email = email
+        self.addresses = addresses
+
