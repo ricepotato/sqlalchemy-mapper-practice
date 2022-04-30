@@ -18,7 +18,7 @@ address = Table(
     "address",
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
-    Column("user_id", ForeignKey("user.id")),
+    Column("user_id", ForeignKey("user.id", ondelete="CASCADE", onupdate="CASCADE")),
     Column("name", String(50)),
     Column("address", String(200)),
 )
@@ -31,4 +31,3 @@ def start_mappers():
         user,
         properties={"addresses": relationship(address_mapper, collection_class=list)},
     )
-

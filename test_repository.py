@@ -1,3 +1,4 @@
+from typing import List
 from faker import Faker
 from repository import SqlalchemyRepository
 from models import User, Address
@@ -45,3 +46,14 @@ def test_sqlalchemy_repository_add_user_address(sqlite_session, fake_addresses):
     addresses = repo.get_addresses_by_user(new_user)
     assert addresses
 
+
+def test_sqlalchemy_repository_delete_user(sqlite_session, fake_users: List[User]):
+    repo = SqlalchemyRepository(session=sqlite_session)
+    assert all(map(lambda user: repo.add(user), fake_users))
+    users = repo.get_users()
+    assert len(users) == 10
+
+    assert repo.delete_user(users[3])
+
+    users = repo.get_users()
+    assert len(users) == 9

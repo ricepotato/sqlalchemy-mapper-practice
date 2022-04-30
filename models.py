@@ -15,3 +15,5 @@ class User:
         self.email = email
         self.addresses = addresses
 
+    def __str__(self):
+        return f"{self.name}, {self.email}"
